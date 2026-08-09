@@ -42,7 +42,7 @@ function Login() {
         if (payload.user_role === "INSTRUCTOR") {
           navigate("/instructordashboard");
         } else {
-          navigate("/allcourses");
+          navigate("/mycourses");
         }
       } else {
         // backend returned an error string like "Invalid password" / "User not found"

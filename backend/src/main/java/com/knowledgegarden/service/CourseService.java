@@ -31,4 +31,4 @@ public interface CourseService {
 
     CoursePlayerResponse getCoursePlayer(Long courseId);
 }
-}
+

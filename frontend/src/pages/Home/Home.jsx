@@ -1,9 +1,18 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import student from "../../assets/student.png";
 import "./Home.css";
 
+
 function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -21,7 +30,9 @@ function Home() {
 
             <div className="home-actions">
               <Link to="/allcourses">View Courses</Link>
-              <Link to="/register" className="secondary-action">Join Now</Link>
+              {!isLoggedIn && (
+                <Link to="/register" className="secondary-action">Join Now</Link>
+              )}
             </div>
           </div>
 

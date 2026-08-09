@@ -14,7 +14,7 @@ import "./CoursePlayer.css";
 function CoursePlayer() {
 
   const { courseId } = useParams();
-
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [lessons, setLessons] = useState([]);
   const [activeVideoUrl, setActiveVideoUrl] = useState("");

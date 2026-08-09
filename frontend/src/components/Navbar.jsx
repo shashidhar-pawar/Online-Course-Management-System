@@ -48,11 +48,14 @@ function Navbar() {
         {user && user.user_role === "INSTRUCTOR" && (
           <li><Link to="/instructordashboard">Dashboard</Link></li>
         )}
+        {user && user.user_role === "STUDENT" && (
+          <li><Link to="/mycourses">MY Courses</Link></li>
+        )}
 
         {user ? (
           <>
             <li>Hi, {user.sub}</li>
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li><Link to="/login" onClick={handleLogout}>Logout</Link></li>
           </>
         ) : (
           <>

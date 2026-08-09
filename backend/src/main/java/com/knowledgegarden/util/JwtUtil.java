@@ -1,4 +1,3 @@
-
 package com.knowledgegarden.util;
 
 import java.util.Date;
