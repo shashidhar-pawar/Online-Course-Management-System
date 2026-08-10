@@ -27,20 +27,6 @@ function InstructorDashboard() {
     return response.data;
   }, []);
 
-  const fetchCourses = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:9998/api/courses/instructor/3"
-      );
-
-      console.log("Response Data:", response.data);
-
-      setCourses(response.data);
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-    }
-  };
-
   useEffect(() => {
     let active = true;
 
@@ -65,54 +51,41 @@ function InstructorDashboard() {
   }, [getCourses]);
 
   const handleDelete = async (courseId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
 
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this course?"
-  );
-
-  if (!confirmDelete) {
-    return;
-  }
-
-  try {
-
-    await apiClient.delete(`/courses/${courseId}`);
-
-    alert("Course deleted successfully.");
-
-    const claims = getTokenClaims();
-    if (claims?.user_id) {
-      const data = await getCourses(claims.user_id);
-      setCourses(data);
+    if (!confirmDelete) {
+      return;
     }
 
-  } catch (error) {
+    try {
+      await apiClient.delete(`/courses/${courseId}`);
 
-    console.error("Error deleting course:", error);
-    alert("Failed to delete course.");
+      alert("Course deleted successfully.");
 
-  }
-
-};
-
+      const claims = getTokenClaims();
+      if (claims?.user_id) {
+        const data = await getCourses(claims.user_id);
+        setCourses(data);
+      }
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      alert("Failed to delete course.");
+    }
+  };
 
   return (
     <>
       <Navbar />
 
-      <div className="dashboard-container">
-        <div className="dashboard-sidebar">
-          <p className="sidebar-link active">Dashboard</p>
-          <p className="sidebar-link">Profile</p>
-          <p className="sidebar-link">Logout</p>
-        </div>
-
-        <div className="dashboard-main">
+      <div className="dashboard-page">
+        <div className="dashboard-content">
           <div className="dashboard-header">
             <div>
-              <h2>Welcome back, {instructorName}</h2>
+              <h1>Welcome back, {instructorName}</h1>
               <p className="subtitle">
-                Here's how your courses are performing
+                Here&apos;s how your courses are performing
               </p>
             </div>
 
@@ -123,50 +96,56 @@ function InstructorDashboard() {
             </Link>
           </div>
 
-          <h3>My Courses</h3>
+          <div className="section">
+            <p className="section-title">My Courses</p>
 
-          <table className="courses-table">
-            <thead>
-              <tr>
-                <th>Course</th>
-                <th>Students</th>
-                <th>Rating</th>
-                <th>Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {courses.length === 0 ? (
-                <tr>
-                  <td colSpan="5">No courses added yet</td>
-                </tr>
-              ) : (
-                courses.map((course) => (
-                  <tr key={course.id}>
-                    <td>{course.title}</td>
-
-                    <td>{course.studentsEnrolled}</td>
-
-                    <td>{course.rating}</td>
-
-                    <td>₹ {course.price}</td>
-
-                    <td className="actions">
-                      <Link to={`/editcourse/${course.id}`}>
-                        <FaEdit className="icon" />
-                      </Link>
-
-                      <FaTrash
-                        className="icon"
-                        onClick={() => handleDelete(course.id)}
-                      />
-                    </td>
+            <div className="table-card">
+              <table className="courses-table">
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Students</th>
+                   
+                    <th>Price</th>
+                    <th>Actions</th>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                </thead>
+
+                <tbody>
+                  {courses.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="empty-row">
+                        No courses added yet
+                      </td>
+                    </tr>
+                  ) : (
+                    courses.map((course) => (
+                      <tr key={course.id}>
+                        <td>{course.title}</td>
+
+                        <td>{course.studentsEnrolled}</td>
+
+                        <td>{course.rating}</td>
+
+                        <td>₹ {course.price}</td>
+
+                        <td className="actions">
+                          <Link to={`/editcourse/${course.id}`}>
+                            <FaEdit className="icon icon-edit" />
+                          </Link>
+
+                          <FaTrash
+                            className="icon icon-delete"
+                            onClick={() => handleDelete(course.id)}
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </>

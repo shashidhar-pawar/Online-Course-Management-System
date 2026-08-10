@@ -1,99 +1,141 @@
-.dashboard-container {
-  display: flex;
-  min-height: 90vh;
+/* Instructor Dashboard — dark theme, matches Add Course page */
+
+.dashboard-page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #0d1526;
+  padding: 3rem 1rem;
 }
 
-.dashboard-sidebar {
-  width: 200px;
-  border-right: 1px solid #ddd;
-  padding: 20px;
+.dashboard-content {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  color: #e7ebf3;
 }
 
-.sidebar-link {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 6px;
-  color: #555;
-}
-
-.sidebar-link.active {
-  background-color: #f0f0f0;
-  color: #000;
-  font-weight: bold;
-}
-
-.dashboard-main {
-  flex: 1;
-  padding: 30px;
-}
-
+/* Header */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  font-size: 1.6rem;
 }
 
 .subtitle {
-  color: #777;
-  font-size: 14px;
+  color: #9aa4b8;
+  margin-bottom: 0;
+  font-size: 0.9rem;
 }
 
+/* Pink primary button, same as Add Course page */
 .add-course-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 0.75rem 1.25rem;
   border: none;
-  border-radius: 6px;
-  background-color: #222;
-  color: #fff;
+  border-radius: 10px;
+  background-color: #ec1671;
+  color: #ffffff;
+  font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .add-course-btn:hover {
-  background-color: #444;
+  background-color: #d3115f;
+}
+
+/* Section */
+.section {
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+/* Table card, same surface treatment as the lesson cards */
+.table-card {
+  background-color: #131c30;
+  border: 1px solid #232e48;
+  border-radius: 12px;
+  padding: 0.5rem;
+  overflow-x: auto;
 }
 
 .courses-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
 .courses-table th,
 .courses-table td {
   text-align: left;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 0.9rem 1rem;
+  white-space: nowrap;
 }
 
-.status {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 13px;
+.courses-table thead th {
+  color: #9aa4b8;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #232e48;
 }
 
-.status.published {
-  background-color: #e0f5e9;
-  color: #1a7a3d;
+.courses-table tbody td {
+  color: #e7ebf3;
+  border-bottom: 1px solid #1c273f;
+  font-size: 0.95rem;
 }
 
-.status.draft {
-  background-color: #fdf0d5;
-  color: #a3690a;
+.courses-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
+.courses-table tbody tr:hover td {
+  background-color: #182238;
+}
+
+.empty-row {
+  text-align: center;
+  color: #9aa4b8;
+  padding: 2rem 1rem;
+}
+
+/* Actions */
 .actions {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 1rem;
 }
 
 .icon {
   cursor: pointer;
-  color: #555;
+  color: #9aa4b8;
+  font-size: 1rem;
+  transition: color 0.15s ease;
 }
 
-.icon:hover {
-  color: #000;
+.icon-edit:hover {
+  color: #ec1671;
+}
+
+.icon-delete:hover {
+  color: #ff6b8a;
 }
