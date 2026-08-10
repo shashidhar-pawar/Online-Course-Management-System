@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Processing Complete";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            
+            <div class="card shadow text-center">
+                <div class="card-body p-5">
+
+                    <h2 class="text-success mb-4">
+                        ✓ Processing Completed
+                    </h2>
+
+                    <p class="mb-4">
+                        Your video has been successfully processed.
+                    </p>
+
+                    <a asp-controller="Video"
+                       asp-action="Download"
+                       asp-route-fileName="@ViewBag.FileName"
+                       class="btn btn-success btn-lg">
+                        Download Processed Video
+                    </a>
+
+                    <div class="mt-3">
+                        <a asp-controller="Video"
+                           asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Process Another Video
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+
+</div>
