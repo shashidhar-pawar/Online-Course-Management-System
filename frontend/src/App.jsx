@@ -10,6 +10,8 @@ import CoursePlayer from "./pages/CoursePlaylist/CoursePlayer";
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard";
 import EditCourse from "./pages/EditCourse/EditCourse";
 import InstructorCourseUpload from "./pages/Instructor/InstructorCourseUpload";
+import MyCourses from "./pages/StudentDashboard/MyCourses";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -17,34 +19,52 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/Register" element={<Register />} />
         <Route path="/allcourses" element={<Courses />} />
-        <Route path="/AllCourses" element={<Courses />} />
         <Route path="/course/:id" element={<CourseDetail />} />
-        <Route path="/course/player/:courseId" element={<CoursePlayer />} />
-        <Route path="/course" element={<CoursePlayer />} />
+        <Route
+          path="/course/player/:courseId"
+          element={
+            <ProtectedRoute>
+              <CoursePlayer />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/about" element={<About />} />
-        <Route path="/About" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/instructordashboard" element={<InstructorDashboard />} />
-        <Route path="/editcourse/:id" element={<EditCourse />} />
-        {/* <Route
-    path="/editcourse/:id"
-    element={<EditCourse />}
-/> */}
 
-        <Route path="/upload" element={<InstructorCourseUpload />} />
-         <Route path="/instructordashboard" element={<InstructorDashboard />} />
-         <Route path="/editcourse/:id" element={<EditCourse/>}/>
-{/* <Route
-    path="/editcourse/:id"
-    element={<EditCourse />}
-/> */}
-        
-        <Route path="/upload" element={<InstructorCourseUpload/>}/>
+        <Route
+          path="/instructordashboard"
+          element={
+            <ProtectedRoute requiredRole="INSTRUCTOR">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mycourses"
+          element={
+            <ProtectedRoute requiredRole="STUDENT">
+              <MyCourses />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/editcourse/:id"
+          element={
+            <ProtectedRoute requiredRole="INSTRUCTOR">
+              <EditCourse />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute requiredRole="INSTRUCTOR">
+              <InstructorCourseUpload />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
